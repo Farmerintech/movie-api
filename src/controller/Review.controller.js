@@ -114,7 +114,6 @@ export const deleteReview = async (req, res)=>{
             const deleteThis = await ReviewModel.findByIdAndDelete(reviewToDel._id)
             return res.status(200).json({message:"review deleted....", deleteThis})
     } catch (error) {
-        console.log(error)
         return res
         .status(500)
         .json({message:error})
