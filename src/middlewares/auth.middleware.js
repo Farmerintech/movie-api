@@ -8,7 +8,6 @@ export const Authorization = async (req, res, next) =>{
     if(!token){
         return res.status(401).json({message:"Not authorized"})
     }
-    console.log(token)
     try {
         const decoded = jwt.verify(token, process.env.SECRETE_KEY);
         req.user = decoded;

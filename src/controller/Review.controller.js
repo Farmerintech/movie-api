@@ -106,7 +106,7 @@ export const deleteReview = async (req, res)=>{
                 const deleteThis = await ReviewModel.findByIdAndDelete(review._id)
                 return res.status(200).json({message:"review deleted by admin....", deleteThis})
         }
-        // or find if the person trying to delete is the one that created it using craterias which include the  person that create it
+        // or find if the person trying to delete is the one that created it using craterias which include the id of the person that create it
         const reviewToDel = await ReviewModel.findOne({_id:review._id, reviewedBy: new mongoose.Types.ObjectId(req.user.id) });
             if(!reviewToDel){
                 return res.status(401).json({message:"You cannot delete the review you do not create", review})
@@ -114,8 +114,6 @@ export const deleteReview = async (req, res)=>{
             const deleteThis = await ReviewModel.findByIdAndDelete(reviewToDel._id)
             return res.status(200).json({message:"review deleted....", deleteThis})
     } catch (error) {
-        return res
-        .status(500)
-        .json({message:error})
+        return res.status(500).json({message:error})
     }
 }
